@@ -104,7 +104,7 @@ function compare() {
 
         setTimeout(function(){
             cardArr.forEach(card => card.addEventListener('click', showCards));
-        },400);
+        },350);
        
     }	 
 }
