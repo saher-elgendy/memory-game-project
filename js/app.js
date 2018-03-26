@@ -90,8 +90,7 @@ function compare() {
             openList[0].classList.remove('open');
             openList[1].classList.remove('open');
             openList[0].removeEventListener('click', showCards);
-            openList[1].removeEventListener('click', showCards); 
-    
+            openList[1].removeEventListener('click', showCards);
            
         }
 	
@@ -104,7 +103,7 @@ function compare() {
 
         setTimeout(function(){
             cardArr.forEach(card => card.addEventListener('click', showCards));
-        },350);
+        },400);
        
     }	 
 }
