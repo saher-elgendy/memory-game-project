@@ -16,7 +16,7 @@ const deck = document.querySelector('.deck');
 const cards = document.querySelectorAll('.card');
 
 let cardArr = Array.prototype.slice.call(cards);
-
+let cardOpen = [];
 const restart = document.querySelector('.restart');
 
 const timeContainer = document.getElementById('seconds');
@@ -27,7 +27,8 @@ const movesContainer = document.querySelector('.moves');
 
 let moves = 0;
 
-let stars = document.querySelector('.stars');
+//let starsContainer = document.querySelector('.stars');
+
 
 const modal = document.querySelector('.modal');
 
@@ -53,7 +54,7 @@ function reset() {
     moves = 0;
     seconds = 0;
     timeContainer.textContent = 0;
-    movesContainer.textContent = 0 + ' Moves';
+    movesContainer.textContent = 0 ;
     deck.innerHTML = '';
     shuffle(cardArr);
 
@@ -69,43 +70,37 @@ window.onload = reset;
 
 function showCards() {
    this.classList.add('open', 'show');	
-
-   compare();
+   cardOpen.push(this);
+   if(cardOpen.length === 1) cardOpen[0].removeEventListener('click', showCards);
+   else if(cardOpen.length === 2) compare();
    moveCounter();
-   win()
+   rating();
+   win();
 }
 
 cardArr.forEach(card => card.addEventListener('click', showCards));
 
 function compare() {
-    let cardOpen = document.querySelectorAll('.open');
-	let openList = [...cardOpen];
-  
-    if (openList.length === 2) {
-       cardArr.forEach(card => card.removeEventListener('click', showCards));
-            
-        if (openList[0].innerHTML === openList[1].innerHTML) {
-            openList[0].classList.add('match');
-            openList[1].classList.add('match');        
-            openList[0].classList.remove('open');
-            openList[1].classList.remove('open');
-            openList[0].removeEventListener('click', showCards);
-            openList[1].removeEventListener('click', showCards);
-           
+        if (cardOpen[0].innerHTML === cardOpen[1].innerHTML) {
+            cardOpen[0].classList.add('match');
+            cardOpen[1].classList.add('match'); 
+            cardOpen[1].removeEventListener('click', showCards);  
+            cardOpen.length = 0;             
         }
-	
+     
         else {
-    	    setTimeout(function() {
-    	    	openList[0].classList.remove('open', 'show');
-                openList[1].classList.remove('open' , 'show');	          
-	    	 }, 750);
-        }
-
-        setTimeout(function(){
-            cardArr.forEach(card => card.addEventListener('click', showCards));
-        },400);
-       
-    }	 
+             cardArr.forEach(card => card.removeEventListener('click', showCards))
+           
+            setTimeout(function() {   
+               cardOpen[0].classList.remove('open', 'show');
+               cardOpen[1].classList.remove('open' , 'show');
+               cardOpen.length = 0;
+               cardArr.forEach(card => {
+                 if(!card.classList.contains('show'))  card.addEventListener('click', showCards)
+               });                  
+            }, 750);
+            
+        } 
 }
 
 function win() {
@@ -113,10 +108,10 @@ function win() {
 
 	if(matchedCards.length === 16){ 
 		deck.innerHTML = '';
-        deck.appendChild(modal);
-        modal.style.display ='block';
-        modal.textContent ='congratulation';
-        clearInterval(id);
+    deck.appendChild(modal);
+    modal.style.display ='block';
+    modal.textContent ='congratulation';
+    clearInterval(id);
 	}
 }
 
@@ -127,12 +122,17 @@ function time() {
   
 function moveCounter() {
     moves++;
-    movesContainer.textContent = moves + ' Moves';
+    movesContainer.textContent = parseInt(moves/2);
     if(moves === 1)    id = setInterval(time, 1000);    
 }
-   
 
-
+function rating (){
+    let stars = document.querySelector('.stars');
+    let movesNumber = movesContainer.textContent;
+    if((movesNumber == 16 && stars.firstChild) || (movesNumber  == 24 && stars.firstChild)|| (movesNumber  == 36 && stars.firstChild)){
+        stars.removeChild(stars.firstChild);
+    } 
+}
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
