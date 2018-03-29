@@ -130,7 +130,7 @@ function moveCounter() {
 function rating (){
     let stars = document.querySelector('.stars');
     let movesNumber = movesContainer.textContent;
-    if((movesNumber == 16 ) || (movesNumber  == 24 )|| (movesNumber  == 36 )){
+    if((movesNumber == 16 && stars.firstChild) || (movesNumber  == 24 && stars.firstChild)){
         stars.removeChild(stars.firstChild);
     } 
 }
