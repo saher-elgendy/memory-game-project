@@ -1,5 +1,6 @@
 html {
     box-sizing: border-box;
+   
 }
 
 *,
@@ -14,11 +15,13 @@ body {
     height: 100%;
     margin: 0;
     padding: 0;
+  
 }
 
 body {
     background: #ffffff url('../img/geometry2.png'); /* Background pattern from Subtle Patterns */
-    font-family: 'Coda', cursive;
+    font-family: 'Chicle', cursive;
+    font-size:120%;
 }
 
 .container {
@@ -66,8 +69,8 @@ h1 {
 }
 
 .deck .card.open {
-    transform: rotateY(180deg);
-    transition:transform .5s ease;
+    /*transform: rotateY(180deg);
+    transition:transform .5s ease;*/
     background: #02b3e4;
     cursor: default;
 }
@@ -99,7 +102,9 @@ h1 {
     margin: 0;
     padding: 0;
     display: inline-block;
-    margin: 0 5px 0 0;
+    margin: 0px 5px 0px 0px;;
+    color: gold;
+    
 }
 
 .score-panel .stars li {
@@ -111,22 +116,87 @@ h1 {
     cursor: pointer;
 }
 
-.modal {
+.modal { 
     display: none;
     padding-top: 150px;
     z-index: 1;
-    width: 100%;
+    width: 50%;
     height: 50%;
     background-color: #fefefe;
+    height:300px;
+    position: absolute;
+    top: 50%;
+    left: 25%;;
     animation-name: animatetop;
-    animation-duration: 0.4s
+    animation-duration: 0.8s
 }
 
 
-.modal-content {
+.final-message {
     background: #fff;
-    margin: auto;
-    width: 80%;
+    margin:auto;
+    width: 80%;;
+    font-family: 'Chicle', cursive;
+    font-size:120%;
+    text-align:center;
+    position:relative;
+    top:-90px;
+   
+}
+.play-again {
+  background-color: #8e0af7;
+  border: 2px solid #eee;
+  width: 50%;
+  margin-left:25%;
+  border: none;
+  color: white;
+  font-size: 100%;
+  font-family: "Montserrat";
+  padding: 1.5em;
+  background-repeat: no-repeat;
+  outline: none;
+  font-weight: 300;
+  position: relative;
+  bottom:70px;
+
+}
+
+.play-again span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.play-again span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.play-again:hover span {
+  padding-right: 25px;
+}
+
+.play-again:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+
+.final-rating li {
+  text-align: center;
+  position: relative;
+  top: -100px; 
+  left:25%;
+  color: gold;
+  font-size: 150%;
+  list-style-type: none;
+  padding: 10px;
+  display: inline;  
 }
 
 @keyframes animatetop {
