@@ -137,3 +137,5 @@ restart.addEventListener('click', reset);
 window.onload = reset;
 // when click play again button on modal reset the game
 document.querySelector('.play-again').onclick = reset;
+
+
